@@ -55,9 +55,9 @@ namespace Tennis
             }
             else
             {
-                score = GetPlayerScore(m_score1);
-                score += "-";
-                score += GetPlayerScore(m_score2);
+                var p1Score = GetPlayerScore(m_score1);
+                var p2Score = GetPlayerScore(m_score2);
+                score = $"{p1Score}-{p2Score}";
             }
             return score;
         }
