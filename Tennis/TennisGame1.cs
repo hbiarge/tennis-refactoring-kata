@@ -9,21 +9,25 @@ namespace Tennis
         private string player1Name;
         private string player2Name;
 
+        private IScorer _scorer;
+
         public TennisGame1(string player1Name, string player2Name)
         {
             this.player1Name = player1Name;
             this.player2Name = player2Name;
+
+            _scorer = new LoveScorer(0);
         }
 
         public void WonPoint(string playerName)
         {
             if (playerName == "player1")
             {
-                m_score1 += 1;
+                _scorer = _scorer.Player1Win();
             }
             else
             {
-                m_score2 += 1;
+                _scorer = _scorer.Player2Win();
             }
         }
 
@@ -34,9 +38,9 @@ namespace Tennis
                 return GetScoreForDraw();
             }
 
-            if (IsScoreDeuceOrWin())
+            if (IsScoreAdvantageOrWin())
             {
-                return GetScoreForDeuceOrWin();
+                return GetScoreForAdvantageOrWin();
             }
 
             var p1Score = GetPlayerScore(m_score1);
@@ -64,12 +68,12 @@ namespace Tennis
             }
         }
 
-        private bool IsScoreDeuceOrWin()
+        private bool IsScoreAdvantageOrWin()
         {
             return m_score1 >= 4 || m_score2 >= 4;
         }
 
-        private string GetScoreForDeuceOrWin()
+        private string GetScoreForAdvantageOrWin()
         {
             var minusResult = m_score1 - m_score2;
 
