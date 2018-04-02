@@ -18,29 +18,55 @@ namespace Tennis
         public void WonPoint(string playerName)
         {
             if (playerName == "player1")
+            {
                 m_score1 += 1;
+            }
             else
+            {
                 m_score2 += 1;
+            }
         }
 
         public string GetScore()
         {
-            string score = "";
             if (IsScoreDraw())
             {
-                score = GetScoreForDraw();
+                return GetScoreForDraw();
             }
-            else if (IsScoreDeuceOrWin())
+
+            if (IsScoreDeuceOrWin())
             {
-                score = GetScoreForDeuceOrWin();
+                return GetScoreForDeuceOrWin();
             }
-            else
+
+            var p1Score = GetPlayerScore(m_score1);
+            var p2Score = GetPlayerScore(m_score2);
+            return $"{p1Score}-{p2Score}";
+        }
+
+        private bool IsScoreDraw()
+        {
+            return m_score1 == m_score2;
+        }
+
+        private string GetScoreForDraw()
+        {
+            switch (m_score1)
             {
-                var p1Score = GetPlayerScore(m_score1);
-                var p2Score = GetPlayerScore(m_score2);
-                score = $"{p1Score}-{p2Score}";
+                case 0:
+                    return "Love-All";
+                case 1:
+                    return "Fifteen-All";
+                case 2:
+                    return "Thirty-All";
+                default:
+                    return "Deuce";
             }
-            return score;
+        }
+
+        private bool IsScoreDeuceOrWin()
+        {
+            return m_score1 >= 4 || m_score2 >= 4;
         }
 
         private string GetScoreForDeuceOrWin()
@@ -65,31 +91,6 @@ namespace Tennis
             return "Win for player2";
         }
 
-        private string GetScoreForDraw()
-        {
-            switch (m_score1)
-            {
-                case 0:
-                    return "Love-All";
-                case 1:
-                    return "Fifteen-All";
-                case 2:
-                    return "Thirty-All";
-                default:
-                    return "Deuce";
-            }
-        }
-
-        private bool IsScoreDraw()
-        {
-            return m_score1 == m_score2;
-        }
-
-        private bool IsScoreDeuceOrWin()
-        {
-            return m_score1 >= 4 || m_score2 >= 4;
-        }
-
         private static string GetPlayerScore(int score)
         {
             switch (score)
@@ -108,4 +109,3 @@ namespace Tennis
         }
     }
 }
-
