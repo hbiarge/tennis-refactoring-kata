@@ -28,22 +28,7 @@ namespace Tennis
             string score = "";
             if (IsScoreDraw())
             {
-                switch (m_score1)
-                {
-                    case 0:
-                        score = "Love-All";
-                        break;
-                    case 1:
-                        score = "Fifteen-All";
-                        break;
-                    case 2:
-                        score = "Thirty-All";
-                        break;
-                    default:
-                        score = "Deuce";
-                        break;
-
-                }
+                score = GetScoreForDraw();
             }
             else if (IsScoreDeuceOrWin())
             {
@@ -60,6 +45,21 @@ namespace Tennis
                 score = $"{p1Score}-{p2Score}";
             }
             return score;
+        }
+
+        private string GetScoreForDraw()
+        {
+            switch (m_score1)
+            {
+                case 0:
+                    return "Love-All";
+                case 1:
+                    return "Fifteen-All";
+                case 2:
+                    return "Thirty-All";
+                default:
+                    return "Deuce";
+            }
         }
 
         private bool IsScoreDraw()
