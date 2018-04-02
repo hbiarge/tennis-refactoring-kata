@@ -26,7 +26,7 @@ namespace Tennis
         public string GetScore()
         {
             string score = "";
-            if (m_score1 == m_score2)
+            if (IsScoreDraw())
             {
                 switch (m_score1)
                 {
@@ -45,7 +45,7 @@ namespace Tennis
 
                 }
             }
-            else if (m_score1 >= 4 || m_score2 >= 4)
+            else if (IsScoreDeuceOrWin())
             {
                 var minusResult = m_score1 - m_score2;
                 if (minusResult == 1) score = "Advantage player1";
@@ -60,6 +60,16 @@ namespace Tennis
                 score = $"{p1Score}-{p2Score}";
             }
             return score;
+        }
+
+        private bool IsScoreDraw()
+        {
+            return m_score1 == m_score2;
+        }
+
+        private bool IsScoreDeuceOrWin()
+        {
+            return m_score1 >= 4 || m_score2 >= 4;
         }
 
         private static string GetPlayerScore(int score)
