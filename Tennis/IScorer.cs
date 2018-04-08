@@ -2,8 +2,13 @@ namespace Tennis
 {
     public interface IScorer
     {
-        IScorer Player1Win();
-        IScorer Player2Win();
+        string PlayerOneName { get; }
+
+        string PlayerTwoName { get; }
+
+        IScorer PlayerOneWin();
+
+        IScorer PlayerTwoWin();
 
         string GetScore();
     }
